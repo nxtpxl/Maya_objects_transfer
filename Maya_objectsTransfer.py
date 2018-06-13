@@ -78,7 +78,6 @@ class importExport(QWidget):
 
     def rightClickPopup(self, point):
         menu = QMenu()
-
         font1 = QFont()
         font1.setPointSize(11)
         font1.setBold(True)
@@ -93,7 +92,6 @@ class importExport(QWidget):
         menuOption_1 = menu.addAction("Import selected File            ")
         menu.addSeparator()
         menuOption_2 = menu.addAction("Reference Selected File         ")
-
         if str(self.ui.users_comboBox.currentText()) == self.LocalUserName:
             menu.addSeparator()
             menuOption_3= menu.addAction("Rename Selected                  ")
@@ -104,28 +102,22 @@ class importExport(QWidget):
         action = menu.exec_(self.ui.files_tableWidget.mapToGlobal(point))
         clickedFileName = self.selectedFileName()
         filePath = (self.seletedFilePath()+'.ma')
-        print (filePath)
         separator = os.path.normpath("/")
         path = re.sub(re.escape(separator), "/", filePath)
-        print (path)
         if action == menuOption_1:
-            print ('importing file')
             mel.eval(
                     'file -import -type "mayaAscii" -mergeNamespacesOnClash false -options "v=0;"  -pr  "%s"' % (
                     path))
         if action == menuOption_2:
-            print ('refrencing file')
             mayaFile = path
             before = set(cmds.ls(type='transform'))
             cmds.file(mayaFile, reference=True)
             after = set(cmds.ls(type='transform'))
             imported = after - before
             print imported
-
         # if local user matched the selected than load else pass
         if str(self.ui.users_comboBox.currentText()) == self.LocalUserName:
             if action == menuOption_3:
-                print ('rename file')
                 notesUpdateUI = 'renameUI'
                 text, ok = QInputDialog.getText(self, 'Text Input Dialog', 'New name: ')
                 if ok:
@@ -141,9 +133,7 @@ class importExport(QWidget):
                         self.selectUser()
                 else:
                     pass
-
             if action == menuOption_4:
-                print ('delete file')
                 os.remove(path)
                 self.selectUser()
             else:
@@ -164,8 +154,6 @@ class importExport(QWidget):
 
     def exportSelected(self):
         newFileName = str(self.ui.newExportContentName.text())
-        print (newFileName)
-
         if newFileName == '':
             cmds.confirmDialog(title="ERROR...",
                                message="Please enter a valid name for the content you want to save.          ")
