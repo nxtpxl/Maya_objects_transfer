@@ -1,10 +1,7 @@
 
 
-# copy and paste
-import os
 import site
 site.addsitedir('C:\Program Files\Autodesk\Maya2018\Python\Lib\site-packages\Qt.py-master')
-#print(Qt.__binding__)
 import Qt
 from Qt import QtWidgets
 import re
@@ -13,20 +10,14 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2.QtUiTools import *
 from shiboken2 import wrapInstance
+import os, glob, time, sys, getpass
 import maya.cmds as cmds
-import os, glob, time
-import sys
-import getpass
 import maya.mel as mel
-
-import os
-
 
 class importExport(QWidget):
 
     def __init__(self):
-        #path = "/net_home/nitin.singh/Desktop/copyNpaste_UI.ui"
-        path = "C:/Users/nitin.singh/Dropbox/MAYA_2018_python_code/cony_n_paste.ui"
+        path = "/net_home/nitin.singh/Desktop/copyNpaste_UI.ui"
         #self.ui = uic.loadUi(os.path.dirname(__file__) + '/camera_manager_UI.ui')
 
         QWidget.__init__(self)
@@ -50,18 +41,18 @@ class importExport(QWidget):
         self.ui.exportSelected_pushButton.clicked.connect(self.exportSelected)
 
         self.ui.files_tableWidget.resizeColumnsToContents()
-        #self.ui.users_comboBox.setStyleSheet('selection-background-color: rgb(0,168,0)')
+        self.ui.users_comboBox.setStyleSheet('selection-background-color: rgb(0,168,0)')
 
 
-        #self.ui.files_tableWidget.setStyleSheet("QTableView { background-color: rgb(0, 0, 0)}")
-        #self.ui.files_tableWidget.setStyleSheet("QTableView {selection-background-color:rgb(0, 255, 0)}")
-        #self.ui.files_tableWidget.setStyleSheet("QTableView {selection-color:rgb(0, 0, 0)}")
-        #self.ui.files_tableWidget.setStyleSheet("QTableView {background-color:rgb(30, 30, 30)}")
+        self.ui.files_tableWidget.setStyleSheet("QTableView { background-color: rgb(0, 0, 0)}")
+        self.ui.files_tableWidget.setStyleSheet("QTableView {selection-background-color:rgb(0, 255, 0)}")
+        self.ui.files_tableWidget.setStyleSheet("QTableView {selection-color:rgb(0, 0, 0)}")
+        self.ui.files_tableWidget.setStyleSheet("QTableView {background-color:rgb(30, 30, 30)}")
 
-        #self.ui.files_tableWidget.setStyleSheet("""QTableView {
-        #                                            selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.8,
-        #                                                                        stop: 0 green, stop: 1 black);
-        #                                        }""")
+        self.ui.files_tableWidget.setStyleSheet("""QTableView {
+                                                    selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.8,
+                                                                                stop: 0 green, stop: 1 black);
+                                                }""")
 
         self.ui.float_on_top_checkBox.toggled.connect(self.AlwaysOn_top)
         self.ui.float_on_top_checkBox.setStyleSheet("color: grey")
