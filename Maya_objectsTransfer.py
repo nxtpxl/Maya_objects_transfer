@@ -1,7 +1,6 @@
 
-
+import os
 import site
-site.addsitedir('C:\Program Files\Autodesk\Maya2018\Python\Lib\site-packages\Qt.py-master')
 import Qt
 from Qt import QtWidgets
 import re
@@ -10,20 +9,22 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2.QtUiTools import *
 from shiboken2 import wrapInstance
-import os, glob, time, sys, getpass
 import maya.cmds as cmds
+import os, glob, time
+import sys
+import getpass
 import maya.mel as mel
+
+import os
+
 
 class importExport(QWidget):
 
     def __init__(self):
-        path = "/net_home/nitin.singh/Desktop/copyNpaste_UI.ui"
-        #self.ui = uic.loadUi(os.path.dirname(__file__) + '/camera_manager_UI.ui')
-
+        path = os.path.dirname(__file__) + '/cony_n_paste.ui'
         QWidget.__init__(self)
-        self.userdataPath = 'L:\\NXTPXLENT\\pipe___RND\\users'
+        self.userdataPath = 'L:/NXTPXLENT/pipe___RND/users'
         self.LocalUserName= getpass.getuser()
-        #self.LocalUserName = 'user.a'
         self.local_user = os.path.join(self.userdataPath, self.LocalUserName, 'copyNpaste_data')
 
         self.ui = QUiLoader().load(path)
@@ -80,8 +81,6 @@ class importExport(QWidget):
             self.ui.float_on_top_checkBox.setStyleSheet("color: grey")
             self.ui.show()
 
-
-
     def rightClickPopup(self, point):
         menu = QMenu()
 
@@ -107,7 +106,6 @@ class importExport(QWidget):
             menuOption_4= menu.addAction("Delete Selected                  ")
         else:
             pass
-
         action = menu.exec_(self.ui.files_tableWidget.mapToGlobal(point))
         clickedFileName = self.selectedFileName()
         filePath = (self.seletedFilePath()+'.ma')
@@ -158,14 +156,12 @@ class importExport(QWidget):
 
     def localUserContentDirCheck(self):
         lu =  os.path.join(self.userdataPath, self.LocalUserName)
-        print (lu)
         if os.path.isdir(lu) == True:
             pass
         else:
             os.mkdir(lu)
 
         localPath = os.path.join(self.userdataPath, self.LocalUserName, 'copyNpaste_data')
-        print (localPath)
         if os.path.isdir(localPath) == True:
             pass
         else:
@@ -212,7 +208,6 @@ class importExport(QWidget):
             else:
                 pass
         users = sorted(users)
-        print(users)
         self.ui.users_comboBox.addItems(users)
 
     def setUserName(self):
