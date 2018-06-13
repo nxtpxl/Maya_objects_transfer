@@ -1,6 +1,4 @@
 
-import os
-import site
 import Qt
 from Qt import QtWidgets
 import re
@@ -14,9 +12,6 @@ import os, glob, time
 import sys
 import getpass
 import maya.mel as mel
-
-import os
-
 
 class importExport(QWidget):
 
